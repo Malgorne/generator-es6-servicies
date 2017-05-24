@@ -3,6 +3,11 @@ logs
 *.log
 npm-debug.log*
 
+# Runtime data
+pids
+*.pid
+*.seed
+
 # Coverage directory used by tools like istanbul
 coverage
 
@@ -18,7 +23,18 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# lint configuration files
+#.eslintrc.*
+
+# yarn
 yarn.lock
+
+# dist folder
 dist
+
+# doc folder
 doc
+
+# ES5 generators
 generators
