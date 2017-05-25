@@ -3,4 +3,6 @@ import requireDir from 'require-dir';
 
 requireDir('./tasks');
 
-gulp.task('default', ['lint', 'babel', 'doc']);
+gulp.task('default', ['clean', 'build']);
+
+gulp.task('build', ['babel', 'doc']);
