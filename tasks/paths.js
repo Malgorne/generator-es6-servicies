@@ -1,3 +1,4 @@
 export default {
-  src: 'src/**/*.js'
+  src: 'src/**/*.js',
+  cleanProject: ['generators', 'doc']
 };
