@@ -1,8 +1,7 @@
 import gulp from 'gulp';
 import requireDir from 'require-dir';
+import runSequence from 'run-sequence';
 
 requireDir('./tasks');
 
-gulp.task('default', ['clean', 'build']);
-
-gulp.task('build', ['babel', 'doc']);
+gulp.task('default', runSequence('clean', ['babel', 'doc']));
