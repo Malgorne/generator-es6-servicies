@@ -32,6 +32,3 @@ yarn.lock
 
 # doc folder
 doc
-
-# ES5 generators
-generators
