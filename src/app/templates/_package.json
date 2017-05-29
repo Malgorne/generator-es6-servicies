@@ -1,17 +1,17 @@
 {
-  "name": "<%= projectName =%>",
+  "name": "<%= projectName %>",
   "version": "0.1.0",
   "description": "<%= projectDescription %>",
   "contributors": [
     {
-      "name": "<%= userName =%>",
-      "email": "<%= userMail =%>"
+      "name": "<%= userName %>",
+      "email": "<%= userMail %>"
     }
   ],
   "license": "UNLICENCED",
   "repository": {
-    "type": "<%= repoType =%>",
-    "url": "<%= repoURL =%>"
+    "type": "<%= repoType %>",
+    "url": "<%= repoURL %>"
   },
   "license": "UNLICENCED",
   "main": "index.js",

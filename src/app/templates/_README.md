@@ -1,4 +1,4 @@
-# <%= projectName =%>
+# <%= projectName %>
 
 ## Overview
 
@@ -9,8 +9,8 @@
 Clone the repo:
 
 ```
-<%= repoType =%> clone <%= repoURL =%>
-cd <%= projectName =%>
+<%= repoType %> clone <%= repoURL %>
+cd <%= projectName %>
 ```
 
 Install yarn:

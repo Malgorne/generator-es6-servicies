@@ -66,21 +66,26 @@ module.exports = generator.extend({
    * @return {Void} The new project.
    */
   writing() {
-    // racines files.
-    ['app.js', '.gitignore'].forEach((fileName) => {
-      this.log(this.sourceRoot());
-      this.log(fileName);
-      this.fs.coptyTpl(
+    // racine files.
+    ['app.js', '.gitignore', '.gitattributes'].forEach(fileName => this.fs.copy(
         this.templatePath(fileName),
         this.destinationPath(fileName)
+      ));
+    // files prefixed by _
+    ['package.json', 'README.md'].forEach((fileName) => {
+      this.fs.copyTpl(
+        this.templatePath(`_${fileName}`),
+        this.destinationPath(fileName),
+        this.answers
       );
     });
-    // files prefixed by _
-    ['package.json', 'README.md'].forEach(fileName => this.fs.coptyTpl(
-      this.templatePath(`_${fileName}`),
-      this.destinationPath(fileName),
-      this.props
-    ));
+    // folders
+    ['bin', 'public', 'routes', 'views'].forEach((folderName) => {
+      this.fs.copy(
+        this.templatePath(folderName),
+        this.destinationPath(folderName)
+      );
+    });
   },
   /**
    * When the user has answer all the inputs, return responses. Uses yosay to be beautiful.
