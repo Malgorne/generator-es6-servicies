@@ -10,9 +10,9 @@
   ],
   "license": "UNLICENCED",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/Malgorne/generator-es6-servicies"
-  },
+      "type": "git",
+      "url": "https://github.com/Malgorne/generator-es6-servicies"
+    },
   "keywords": [
     "yeoman-generator",
     "api",
@@ -30,12 +30,18 @@
   ],
   "scripts": {
     "build": "gulp",
-    "lint": "gulp lint"
+    "cleanup": "gulp clean",
+    "test": "gulp && gulp tests"
   },
   "dependencies": {
+    "gulp-inject-modules": "^1.0.0",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-mocha": "^4.3.1",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
+    "yeoman-assert": "^3.0.0",
     "yeoman-generator": "^1.1.1",
+    "yeoman-test": "^1.6.0",
     "yosay": "^2.0.0"
   },
   "devDependencies": {
@@ -47,8 +53,7 @@
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^3.0.1",
     "gulp-jsdoc3": "^1.0.1",
-    "require-dir": "^0.3.1",
-    "run-sequence": "^1.2.2"
+    "require-dir": "^0.3.1"
   },
   "babel": {
     "presets": [
