@@ -66,7 +66,7 @@ module.exports = generator.extend({
    * @return {Void} The new project.
    */
   writing() {
-    // racine files.
+    // root files.
     ['.gitignore', '.gitattributes', '.eslintrc', 'gulpfile.babel.js'].forEach(fileName => this.fs.copy(
         this.templatePath(fileName),
         this.destinationPath(fileName)
