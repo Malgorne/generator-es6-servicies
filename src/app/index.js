@@ -67,7 +67,7 @@ module.exports = generator.extend({
    */
   writing() {
     // racine files.
-    ['app.js', '.gitignore', '.gitattributes'].forEach(fileName => this.fs.copy(
+    ['.gitignore', '.gitattributes', '.eslintrc', 'gulpfile.babel.js'].forEach(fileName => this.fs.copy(
         this.templatePath(fileName),
         this.destinationPath(fileName)
       ));
@@ -80,7 +80,7 @@ module.exports = generator.extend({
       );
     });
     // folders
-    ['bin', 'public', 'routes', 'views'].forEach((folderName) => {
+    ['src', 'tasks'].forEach((folderName) => {
       this.fs.copy(
         this.templatePath(folderName),
         this.destinationPath(folderName)
