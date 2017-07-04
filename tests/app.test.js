@@ -23,8 +23,7 @@ describe('# generator-app', () => {
 
   // Checks it template's files are creating.
   forEach(describedFiles, fileCase =>
-    it(`It ${fileCase.it}`, () =>
-      assign(assert, { file: fileCase.files })
+    it(`It ${fileCase.it}`, () => assign(assert, { file: fileCase.files })
   ));
 
   it('package.json should constain user\'s answers', () => {

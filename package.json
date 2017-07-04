@@ -10,9 +10,9 @@
   ],
   "license": "UNLICENCED",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/Malgorne/generator-es6-servicies"
-    },
+    "type": "git",
+    "url": "https://github.com/Malgorne/generator-es6-servicies"
+  },
   "keywords": [
     "yeoman-generator",
     "api",

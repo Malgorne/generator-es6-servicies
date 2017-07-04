@@ -1,4 +1,3 @@
 module.exports = {
-  app: require.resolve('./generators/app'),
-  route: require.resolve('./generators/route'),
+  app: require.resolve('./generators/app')
 };
