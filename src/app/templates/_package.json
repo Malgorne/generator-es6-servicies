@@ -17,6 +17,7 @@
   "scripts": {
     "build": "gulp",
     "cleanup": "gulp clean",
+    "doc": "gulp doc",
     "start": "nodemon"
   },
   "engines": {
@@ -32,6 +33,7 @@
     "express": "~4.14.0",
     "express-request-language": "^1.1.10",
     "express-winston": "^2.4.0",
+    "gulp-jsdoc3": "^1.0.1",
     "helmet": "^3.6.1",
     "http-status": "^1.0.1",
     "lodash": "^4.17.4",

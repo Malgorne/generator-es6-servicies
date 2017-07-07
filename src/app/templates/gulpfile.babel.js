@@ -3,4 +3,4 @@ import requireDir from 'require-dir';
 
 requireDir('./tasks');
 
-gulp.task('default', ['babel']);
+gulp.task('default', ['babel', 'doc']);
