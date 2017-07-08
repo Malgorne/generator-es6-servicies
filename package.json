@@ -31,6 +31,7 @@
   "scripts": {
     "build": "gulp",
     "cleanup": "gulp clean",
+    "prepush": "gulp tests",
     "test": "gulp && gulp tests"
   },
   "dependencies": {
