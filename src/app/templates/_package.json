@@ -19,7 +19,8 @@
     "cleanup": "gulp clean",
     "doc": "gulp doc",
     "prepush": "gulp tests",
-    "start": "nodemon"
+    "start": "nodemon",
+    "test": "gulp tests"
   },
   "engines": {
     "node": ">=4.6.0",
