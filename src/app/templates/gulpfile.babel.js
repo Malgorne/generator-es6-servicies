@@ -5,4 +5,4 @@ requireDir('./tasks');
 
 gulp.task('default', ['babel', 'doc']);
 
-gulp.task('tests', ['lint']);
+gulp.task('tests', ['lint', 'unit-tests']);

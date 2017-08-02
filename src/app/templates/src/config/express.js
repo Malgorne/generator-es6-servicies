@@ -34,12 +34,14 @@ const _configureMiddlewares = (app) => {
  * @returns { Void }
  */
 const _configureEnvironment = (app) => {
+  // enable detailed API logging in dev env
   if (config.env === 'development') {
     expressWinston.requestWhitelist.push('body');
     expressWinston.responseWhitelist.push('body');
     app.use(expressWinston.logger({
       winstonInstance,
-      msg: 'HTTP {{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms'
+      msg: 'HTTP {{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms',
+      colorStatus: true
     }));
   }
 };
@@ -48,6 +50,6 @@ export default () => {
   const app = express();
   _configureMiddlewares(app);
   _configureEnvironment(app);
-  app.use('/endpoint', routes());
+  app.use('/<%= projectName %>', routes());
   return app;
 };

@@ -1,6 +1,6 @@
 import gulp from 'gulp';
 import del from 'del';
 
-import paths from './paths';
+import { cleanProject } from './paths';
 
-gulp.task('clean', () => del(paths.cleanProject));
+gulp.task('clean', () => del(cleanProject));

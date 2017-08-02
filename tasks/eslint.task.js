@@ -1,9 +1,9 @@
 import gulp from 'gulp';
 import eslint from 'gulp-eslint';
 
-import paths from './paths';
+import { jsExceptTemplates } from './paths';
 
-gulp.task('lint', () => gulp.src(paths.jsExceptTemplates)
+gulp.task('lint', () => gulp.src(jsExceptTemplates)
   .pipe(eslint())
   .pipe(eslint.format())
   .pipe(eslint.failAfterError()
