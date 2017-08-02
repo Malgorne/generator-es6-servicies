@@ -2,7 +2,7 @@ import { OK, BAD_REQUEST } from 'http-status';
 import logger from '../../config/winston';
 
 /**
- * Sample controller used for a get route.
+ * Sample controller used for a imported get route.
  * @param  {Object} req the request
  * @param  {Object} res the response
  * @return {Void}
@@ -10,7 +10,7 @@ import logger from '../../config/winston';
 export const getTest = (req, res) => res.status(OK).json({ success: true });
 
 /**
- * Sample controller used for a post route.
+ * Sample controller used for a imported post route.
  * @param  {Object} req the request wich must contain a param name
  * @param  {Object} res the response
  * @return {Void}

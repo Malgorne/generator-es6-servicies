@@ -80,10 +80,11 @@ module.exports = generator.extend({
       );
     });
     // folders
-    ['src', 'tasks'].forEach((folderName) => {
-      this.fs.copy(
+    ['src', 'tasks', 'tests'].forEach((folderName) => {
+      this.fs.copyTpl(
         this.templatePath(folderName),
-        this.destinationPath(folderName)
+        this.destinationPath(folderName),
+        this.answers
       );
     });
   },

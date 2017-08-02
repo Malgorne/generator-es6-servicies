@@ -1,5 +1,5 @@
 import path from 'path';
-import { forEach, set } from 'lodash';
+import { assign } from 'lodash';
 
 const env = process.env.NODE_ENV || 'development';
 const config = require(`./${env}`); // eslint-disable-line import/no-dynamic-require
@@ -11,6 +11,4 @@ const defaults = {
   db: process.env.DB_URI || ''
 };
 
-forEach(config.default, (value, key) => set(defaults, key, value));
-
-export default defaults;
+export default assign(defaults, config);

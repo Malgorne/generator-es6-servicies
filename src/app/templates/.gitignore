@@ -25,3 +25,6 @@ yarn.lock
 
 # doc folder
 doc
+
+# Dist
+dist

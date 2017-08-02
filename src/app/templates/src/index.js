@@ -6,15 +6,17 @@ import initApp from './config/express';
 import logger from './config/winston';
 
 const launch = () => new Promise((resolve, reject) => {
-  dbInit(config).then(() => {
+  dbInit(config)
+  .then(() => {
     const app = initApp();
     const server = http.createServer(app);
     server.listen(config.port,
       () => logger.info(`Server started on port ${config.port} (${config.env})`));
+    return resolve(server);
   })
   .catch((err) => {
     logger.error(`An error occured: ${err}`);
-    reject(err);
+    return reject(err);
   });
 });
 

@@ -18,6 +18,9 @@ const describedFiles = [
   }, {
     it: 'should generate gulp tasks',
     files: ['tasks/babel.task.js', 'tasks/clean.task.js', 'tasks/path.js']
+  }, {
+    it: 'should generate tests files',
+    files: ['tasks/main.test.js', 'tasks/init.test.js', 'tasks/test.test.js']
   }
 ];
 
