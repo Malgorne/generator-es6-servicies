@@ -93,6 +93,7 @@ module.exports = generator.extend({
    * @return {String} Answers
    */
   end() {
-    this.log(yosay(`See you soon ${this.answers.userName}`));
+    this.yarnInstall();
+    this.log(yosay(`I will install your dependencies. See you soon ${this.answers.userName}`));
   }
 });
