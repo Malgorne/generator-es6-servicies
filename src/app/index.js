@@ -26,16 +26,20 @@ module.exports = generator.extend({
   prompting() {
     return this.prompt([{
       name: 'projectName',
-      message: '(1/6) What\'s your project\'s name?'
+      message: '(1/6) What\'s your project\'s name?',
+      default: 'newProject'
     }, {
       name: 'projectDescription',
-      message: '(2/6) Enter a description:'
+      message: '(2/6) Enter a description:',
+      default: 'A new project'
     }, {
       name: 'userName',
-      message: '(3/6) What\'s your name'
+      message: '(3/6) What\'s your name',
+      default: 'Parker Lewis'
     }, {
       name: 'userMail',
-      message: '(4/6) What\'s your email?'
+      message: '(4/6) What\'s your email?',
+      default: 'myEmail@email.com'
     }, {
       name: 'repoType',
       type: 'list',
@@ -43,7 +47,8 @@ module.exports = generator.extend({
       message: 'What\'s you repository type?'
     }, {
       name: 'repoURL',
-      message: 'Your URL repo:'
+      message: 'Your URL repo:',
+      default: 'http://git.myproject.com'
     }])
       .then(answers => forEach(answers, (value, key) => set(this.answers, key, value)));
   },
@@ -94,6 +99,6 @@ module.exports = generator.extend({
    */
   end() {
     this.yarnInstall();
-    this.log(yosay(`I will install your dependencies. See you soon ${this.answers.userName}`));
+    this.log(yosay(`See you soon ${this.answers.userName}`));
   }
 });
