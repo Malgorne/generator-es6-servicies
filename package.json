@@ -32,7 +32,7 @@
     "build": "gulp",
     "cleanup": "gulp clean",
     "prepush": "gulp tests",
-    "test": "gulp && gulp tests"
+    "test": "gulp tests"
   },
   "dependencies": {
     "lodash": "^4.17.4",
