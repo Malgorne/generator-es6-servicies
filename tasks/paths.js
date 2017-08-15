@@ -1,5 +1,5 @@
 export default {
-  src: 'src/**/*.js',
+  doc: ['src/app/index.js', 'README.md'],
   appTemplates: ['src/app/templates/**/.*', 'src/app/templates/**/*'],
   routeTemplates: ['src/route/templates/**/.*', 'src/route/templates/**/*'],
   exceptTemplates: ['!src/app/templates/**/*', '!src/route/templates/**/*'],
