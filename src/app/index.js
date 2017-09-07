@@ -1,4 +1,4 @@
-import generator from 'yeoman-generator';
+import Generator from 'yeoman-generator';
 import mkdirp from 'mkdirp';
 import path from 'path';
 import yosay from 'yosay';
@@ -9,7 +9,7 @@ import { forEach, set } from 'lodash';
  * Personalizes the generator.
  * @module generator
  */
-module.exports = generator.extend({
+module.exports = class extends Generator {
   /**
    * Says welcome to the user. Uses yosay to be beautiful.
    * Creates an object to store user's answers.
@@ -18,7 +18,7 @@ module.exports = generator.extend({
   initializing() {
     this.log(yosay('Welcome!'));
     this.answers = {};
-  },
+  }
   /**
    * List of questions to cutum the building module. Then, it sets generator's properties.
    * @return {Array} Inputs
@@ -51,11 +51,11 @@ module.exports = generator.extend({
       default: 'http://git.myproject.com'
     }])
       .then(answers => forEach(answers, (value, key) => set(this.answers, key, value)));
-  },
+  }
   // Creates the .yo-rc.json
   configuring() {
     this.config.save();
-  },
+  }
   /**
    * Creates folder's project and set the destination's root path.
    * @return {Void} The project's folder.
@@ -65,7 +65,7 @@ module.exports = generator.extend({
       mkdirp(`../${this.answers.projectName}`);
       this.destinationRoot(this.destinationPath(`../${this.answers.projectName}`));
     }
-  },
+  }
   /**
    * Creates the new project.
    * @return {Void} The new project.
@@ -92,7 +92,7 @@ module.exports = generator.extend({
         this.answers
       );
     });
-  },
+  }
   /**
    * When the user has answer all the inputs, return responses. Uses yosay to be beautiful.
    * @return {String} Answers
@@ -101,4 +101,4 @@ module.exports = generator.extend({
     this.yarnInstall();
     this.log(yosay(`See you soon ${this.answers.userName}`));
   }
-});
+};
