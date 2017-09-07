@@ -2,7 +2,7 @@ import Generator from 'yeoman-generator';
 import mkdirp from 'mkdirp';
 import path from 'path';
 import yosay from 'yosay';
-import { forEach, set } from 'lodash';
+import { forEach, set, drop, replace } from 'lodash';
 
 
 /**
@@ -10,6 +10,15 @@ import { forEach, set } from 'lodash';
  * @module generator
  */
 module.exports = class extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
+
+    // This makes `appname` a required argument.
+    this.argument('projectName', { type: String, required: false });
+
+    // And you can then access it later; e.g.
+    this.log(this.options.projectName);
+  }
   /**
    * Says welcome to the user. Uses yosay to be beautiful.
    * Creates an object to store user's answers.
@@ -24,32 +33,42 @@ module.exports = class extends Generator {
    * @return {Array} Inputs
    */
   prompting() {
-    return this.prompt([{
+    let prompts = [{
       name: 'projectName',
-      message: '(1/6) What\'s your project\'s name?',
+      message: '(XXX/YYY) What\'s your project\'s name?',
       default: 'newProject'
     }, {
       name: 'projectDescription',
-      message: '(2/6) Enter a description:',
+      message: '(XXX/YYY) Enter a description:',
       default: 'A new project'
     }, {
       name: 'userName',
-      message: '(3/6) What\'s your name',
+      message: '(XXX/YYY) What\'s your name',
       default: 'Parker Lewis'
     }, {
       name: 'userMail',
-      message: '(4/6) What\'s your email?',
+      message: '(XXX/YYY) What\'s your email?',
       default: 'myEmail@email.com'
     }, {
       name: 'repoType',
       type: 'list',
-      choices: ['git', 'gitLab', 'bitbucket', 'coding'],
-      message: 'What\'s you repository type?'
+      message: '(XXX/YYY)What\'s you repository type?',
+      choices: ['git', 'gitLab', 'bitbucket', 'coding']
     }, {
       name: 'repoURL',
-      message: 'Your URL repo:',
+      message: '(XXX/YYY)our URL repo:',
       default: 'http://git.myproject.com'
-    }])
+    }];
+
+    if (this.options.projectName) {
+      prompts = drop(prompts);
+    }
+
+    forEach(prompts, (value, key) => {
+      prompts[key].message = replace(value.message, 'XXX', key + 1);
+      prompts[key].message = replace(value.message, 'YYY', prompts.length);
+    });
+    return this.prompt(prompts)
       .then(answers => forEach(answers, (value, key) => set(this.answers, key, value)));
   }
   // Creates the .yo-rc.json
