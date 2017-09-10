@@ -52,11 +52,12 @@ module.exports = class extends Generator {
     }, {
       name: 'repoType',
       type: 'list',
-      message: '(XXX/YYY)What\'s you repository type?',
+      message: '(XXX/YYY) What\'s you repository type?',
+      default: 'git',
       choices: ['git', 'gitLab', 'bitbucket', 'coding']
     }, {
       name: 'repoURL',
-      message: '(XXX/YYY)our URL repo:',
+      message: '(XXX/YYY) Your URL repo:',
       default: 'http://git.myproject.com'
     }];
 
@@ -68,8 +69,14 @@ module.exports = class extends Generator {
       prompts[key].message = replace(value.message, 'XXX', key + 1);
       prompts[key].message = replace(value.message, 'YYY', prompts.length);
     });
+
     return this.prompt(prompts)
-      .then(answers => forEach(answers, (value, key) => set(this.answers, key, value)));
+      .then((answers) => {
+        forEach(answers, (value, key) => set(this.answers, key, value));
+        if (this.options.projectName) {
+          set(this.answers, 'projectName', this.options.projectName);
+        }
+      });
   }
   // Creates the .yo-rc.json
   configuring() {
@@ -81,7 +88,7 @@ module.exports = class extends Generator {
    */
   defaults() {
     if (path.basename(this.destinationPath()) !== this.answers.projectName) {
-      mkdirp(`../${this.answers.projectName}`);
+      mkdirp(`../${this.options.projectName ? this.options.projectName : this.answers.projectName}`);
       this.destinationRoot(this.destinationPath(`../${this.answers.projectName}`));
     }
   }
