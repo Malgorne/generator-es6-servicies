@@ -1,11 +1,12 @@
-const helpers = require('yeoman-test');
-const assert = require('yeoman-assert');
-const path = require('path');
-const { forEach, assign } = require('lodash');
+import helpers from 'yeoman-test';
+import assert from 'yeoman-assert';
+import path from 'path';
+import { forEach, assign } from 'lodash';
 
-const describedFiles = require('./files-descriptions');
+import describedFiles from './files-descriptions';
+import testJson from './tools.test.js';
 
-describe('# generator-app', () => {
+describe('# generator-app without argument, with user answers', () => {
   // Answers to test.
   const answers = {
     projectName: 'myService',
@@ -26,20 +27,34 @@ describe('# generator-app', () => {
     it(`It ${fileCase.it}`, () => assign(assert, { file: fileCase.files })
   ));
 
-  it('package.json should constain user\'s answers', () => {
-    const { projectName, projectDescription, userName, userMail, repoType, repoURL } = answers;
+  it('package.json should constain user\'s answers', () => testJson(answers));
+});
 
-    assert.JSONFileContent('package.json', {
-      name: projectName,
-      description: projectDescription,
-      contributors: [{
-        name: userName,
-        email: userMail
-      }],
-      repository: {
-        type: repoType,
-        url: repoURL
-      }
-    });
+describe('# generator-app with argument, with default values', () => {
+  // Default values.
+  const defaultAnswers = {
+    projectDescription: 'A new project',
+    userName: 'Parker Lewis',
+    userMail: 'myEmail@email.com',
+    repoType: 'git',
+    repoURL: 'http://git.myproject.com'
+  };
+  // The argument.
+  const projectName = 'myService';
+
+  // Runs the yeoman test helper, with test answers.
+  before(() => helpers.run(path.join(__dirname, '../generators/app'))
+    .withArguments([projectName])
+    .toPromise()
+  );
+
+  // Checks it template's files are creating.
+  forEach(describedFiles, fileCase =>
+    it(`It ${fileCase.it}`, () => assign(assert, { file: fileCase.files })
+  ));
+
+  it('package.json should constain user\'s answers', () => {
+    assign(defaultAnswers, { projectName });
+    testJson(defaultAnswers);
   });
 });
