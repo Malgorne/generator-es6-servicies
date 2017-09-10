@@ -12,12 +12,7 @@ import { forEach, set, drop, replace } from 'lodash';
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
-
-    // This makes `appname` a required argument.
     this.argument('projectName', { type: String, required: false });
-
-    // And you can then access it later; e.g.
-    this.log(this.options.projectName);
   }
   /**
    * Says welcome to the user. Uses yosay to be beautiful.
