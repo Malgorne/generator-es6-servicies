@@ -16,6 +16,6 @@ gulp.task('unit-tests', ['coverage'], () => gulp.src(tests)
   .pipe(injectModules())
   .pipe(mocha())
   .pipe(istanbul.writeReports())
-  .pipe(istanbul.enforceThresholds({ thresholds: { global: 65 } }))
+  .pipe(istanbul.enforceThresholds({ thresholds: { global: 50 } }))
   .once('end', () => process.exit()
 ));
