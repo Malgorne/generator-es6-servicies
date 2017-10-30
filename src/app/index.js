@@ -7,25 +7,57 @@ import { forEach, set, drop, replace } from 'lodash';
 
 /**
  * Personalizes the generator.
- * @module generator
+ * @namespace generator
+ * @class
  */
 module.exports = class extends Generator {
+  /**
+   * @constructs generator
+   * @description Is in charge to create options and arguments configuration.
+   * @param {Object} args - Arguements passed to the generator.
+   * @param {Object} options - options submitted by the user.
+   */
   constructor(args, opts) {
     super(args, opts);
-    this.argument('projectName', { type: String, required: false });
+    this.argument('projectName', {
+      type: String,
+      required: false
+    });
+
+    this.option('pmYarn', {
+      desc: 'Package manager: Yarn (default)',
+      type: Boolean,
+      default: true
+    });
+    this.option('pmNpm', {
+      desc: 'Package manager: Npm (default: Yarn)',
+      type: Boolean,
+      default: false
+    });
+    this.option('pmBower', {
+      desc: 'Package manager: Bower (default: Yarn)',
+      type: Boolean,
+      default: false
+    });
   }
+
   /**
-   * Says welcome to the user. Uses yosay to be beautiful.
+   * @function initializing
+   * @memberof generator
+   * @description Says welcome to the user. Uses yosay to be beautiful.
    * Creates an object to store user's answers.
-   * @return {String} welcome message
+   * @return {String} Welcome message
    */
   initializing() {
-    this.log(yosay('Welcome!'));
     this.answers = {};
+    return this.log(yosay('Welcome!'));
   }
+
   /**
-   * List of questions to cutum the building module. Then, it sets generator's properties.
-   * @return {Array} Inputs
+   * @function prompting
+   * @memberof generator
+   * @description Send prompts and store user's anwers.
+   * @return {Void} Inputs
    */
   prompting() {
     let prompts = [{
@@ -55,11 +87,9 @@ module.exports = class extends Generator {
       message: '(XXX/YYY) Your URL repo:',
       default: 'http://git.myproject.com'
     }];
+    const { projectName } = this.options;
 
-    if (this.options.projectName) {
-      prompts = drop(prompts);
-    }
-
+    if (projectName) prompts = drop(prompts);
     forEach(prompts, (value, key) => {
       prompts[key].message = replace(value.message, 'XXX', key + 1);
       prompts[key].message = replace(value.message, 'YYY', prompts.length);
@@ -68,27 +98,38 @@ module.exports = class extends Generator {
     return this.prompt(prompts)
       .then((answers) => {
         forEach(answers, (value, key) => set(this.answers, key, value));
-        if (this.options.projectName) {
-          set(this.answers, 'projectName', this.options.projectName);
-        }
+        if (projectName) set(this.answers, 'projectName', projectName);
       });
   }
-  // Creates the .yo-rc.json
+
+  /**
+   * @function configuring
+   * @memberof generator
+   * @description Creates the .yo-rc.json to save some user's answers.
+   * @return {Void}
+   */
   configuring() {
     this.config.save();
   }
+
   /**
-   * Creates folder's project and set the destination's root path.
+   * @function defaults
+   * @memberof generator
+   * @description Creates folder's project and set the destination's root path.
    * @return {Void} The project's folder.
    */
   defaults() {
-    if (path.basename(this.destinationPath()) !== this.answers.projectName) {
-      mkdirp(`../${this.options.projectName ? this.options.projectName : this.answers.projectName}`);
-      this.destinationRoot(this.destinationPath(`../${this.answers.projectName}`));
+    const projectName = this.answers.projectName; // From answers.
+    if (path.basename(this.destinationPath()) !== projectName) {
+      mkdirp(`../${this.options.projectName || projectName}`);
+      this.destinationRoot(this.destinationPath(`${projectName}`));
     }
   }
+
   /**
-   * Creates the new project.
+   * @function writing
+   * @memberof generator
+   * @description Creates the new project.
    * @return {Void} The new project.
    */
   writing() {
@@ -98,28 +139,34 @@ module.exports = class extends Generator {
         this.destinationPath(fileName)
       ));
     // files prefixed by _
-    ['package.json', 'README.md'].forEach((fileName) => {
-      this.fs.copyTpl(
+    ['package.json', 'README.md'].forEach(fileName => this.fs.copyTpl(
         this.templatePath(`_${fileName}`),
         this.destinationPath(fileName),
         this.answers
-      );
-    });
-    // folders
-    ['src', 'tasks', 'tests'].forEach((folderName) => {
-      this.fs.copyTpl(
+      ));
+    // basic's folders
+    ['src', 'tasks', 'tests'].forEach(folderName => this.fs.copyTpl(
         this.templatePath(folderName),
         this.destinationPath(folderName),
         this.answers
-      );
-    });
+      ));
   }
+
   /**
-   * When the user has answer all the inputs, return responses. Uses yosay to be beautiful.
-   * @return {String} Answers
+   * @function end
+   * @memberof generator
+   * @description When the user has answer all the inputs, returns responses.
+   * Updates dependencies and says goodbye. Uses yosay to be beautiful.
+   * @return {String} Good bye message
    */
   end() {
-    this.yarnInstall();
-    this.log(yosay(`See you soon ${this.answers.userName}`));
+    const { pmYarn, pmNpm, pmBower } = this.options;
+
+    this.installDependencies({
+      yarn: pmYarn,
+      npm: pmNpm,
+      bower: pmBower
+    });
+    return this.log(yosay(`See you soon ${this.answers.userName}`));
   }
 };
