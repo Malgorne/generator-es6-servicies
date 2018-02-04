@@ -121,7 +121,7 @@ module.exports = class extends Generator {
   defaults() {
     const projectName = this.answers.projectName; // From answers.
     if (path.basename(this.destinationPath()) !== projectName) {
-      mkdirp(`../${this.options.projectName || projectName}`);
+      mkdirp(`${this.options.projectName || projectName}`);
       this.destinationRoot(this.destinationPath(`${projectName}`));
     }
   }
